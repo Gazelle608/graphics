@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graphic Design Portfolio · Gallery</title>
+  <!-- Font Awesome for icons (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f1eb;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      padding: 2rem 1.5rem;
+      color: #1e1e1e;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* main container */
+    .portfolio {
+      max-width: 1300px;
+      width: 100%;
+    }
+
+    /* header */
+    .portfolio-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      border-bottom: 2px solid #d9d0c4;
+      padding-bottom: 1.5rem;
+    }
+
+    .portfolio-header h1 {
+      font-size: 2.8rem;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      color: #2c2b28;
+    }
+
+    .portfolio-header h1 i {
+      color: #b3866b;
+      margin-right: 12px;
+    }
+
+    .portfolio-header p {
+      font-size: 1.1rem;
+      color: #5f5a54;
+      margin-top: 6px;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    /* filter / tag line (javascript interactive) */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.7rem 1.2rem;
+      margin-bottom: 2.8rem;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1.5px solid #c9bfb3;
+      padding: 0.5rem 1.4rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #3d3a36;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.3px;
+      background: #fcf9f6;
+    }
+
+    .filter-btn i {
+      margin-right: 8px;
+      font-size: 0.9rem;
+    }
+
+    .filter-btn:hover {
+      background: #e4dbd1;
+      border-color: #a28d7a;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.04);
+    }
+
+    .filter-btn.active {
+      background: #2c2b28;
+      border-color: #2c2b28;
+      color: #f5f0ea;
+    }
+
+    /* gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.8rem;
+      margin-top: 0.5rem;
+    }
+
+    /* card */
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.02);
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ece7e0;
+      backdrop-filter: blur(2px);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 40px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(0, 0, 0, 0.04);
+      border-color: #cdc1b4;
+    }
+
+    .card-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #e8e1d9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.2rem;
+      color: #8d7e6e;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* each image uses a gradient + icon to simulate graphic design work */
+    .card-img .preview-icon {
+      font-size: 4.8rem;
+      opacity: 0.7;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+      transition: transform 0.2s;
+    }
+
+    .card:hover .card-img .preview-icon {
+      transform: scale(1.04);
+    }
+
+    /* card body */
+    .card-body {
+      padding: 1.2rem 1.2rem 1.4rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #1e1c1a;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-title i {
+      color: #b3866b;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.6rem;
+      margin-top: 0.5rem;
+    }
+
+    .tag {
+      background: #f0ebe5;
+      padding: 0.2rem 0.9rem;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      color: #4d453e;
+      text-transform: uppercase;
+      border: 1px solid #ddd6cd;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: #5f5850;
+      margin-top: 0.6rem;
+      line-height: 1.4;
+      font-weight: 300;
+    }
+
+    /* footer */
+    .footer-note {
+      margin-top: 3.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #887e73;
+      border-top: 1px solid #ddd6cd;
+      padding-top: 1.8rem;
+      letter-spacing: 0.3px;
+    }
+
+    .footer-note i {
+      color: #b3866b;
+      margin: 0 4px;
+    }
+
+    /* responsive */
+    @media (max-width: 580px) {
+      body { padding: 1rem; }
+      .portfolio-header h1 { font-size: 2.2rem; }
+      .filter-btn { padding: 0.4rem 1rem; font-size: 0.8rem; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    }
+
+    @media (max-width: 440px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="portfolio">
+  <!-- header -->
+  <div class="portfolio-header">
+    <h1><i class="fas fa-pen-fancy"></i> Designs 4 You</h1>
+    <p><i class="fas fa-th-large" style="margin-right: 6px;"></i> graphic design portfolio</p>
+  </div>
+
+  <!-- filter bar (javascript) -->
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" data-filter="all"><i class="fas fa-border-all"></i> All</button>
+    <button class="filter-btn" data-filter="branding"><i class="fas fa-tag"></i> Branding</button>
+    <button class="filter-btn" data-filter="print"><i class="fas fa-print"></i> Print</button>
+    <button class="filter-btn" data-filter="digital"><i class="fas fa-laptop"></i> Digital</button>
+  </div>
+
+  <!-- gallery grid injected by javascript -->
+  <div class="gallery-grid" id="galleryGrid"></div>
+
+  <div class="footer-note">
+    <i class="fas fa-palette"></i>  graphic design · curated with <i class="fas fa-heart" style="color:#b3866b;"></i>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ----- portfolio data -----
+    const projects = [
+      {
+        id: 1,
+        title: "Goldies Solution",
+        category: "branding",
+        tags: ["branding", "identity"],
+        img: "https://i.postimg.cc/wMPBx4nz/Goldies-Web-Solutions-Logo-Design.png",
+        color: "#d4c3b0",
+        description: "Logo redesign."
+      },
+      {
+        id: 2,
+        title: "Cinderella Cover",
+        category: "print",
+        tags: ["print", "cover"],
+        img: "https://i.postimg.cc/15htd20t/cinderella.jpg",
+        color: "#b7c9d4",
+        description: "Book Cover."
+      },
+      {
+        id: 3,
+        title: "Prisca",
+        category: "digital",
+        tags: ["digital", "ui"],
+        img: "https://i.postimg.cc/CKzS5sCt/The-PRISCA-Review-O-Barren-Woman.png",
+        color: "#dec4b0",
+        description: "Magazine cover design."
+      },
+      {
+        id: 4,
+        title: "Jen-Faroe",
+        category: "branding",
+        tags: ["packaging", "identity"],
+        img: "https://i.postimg.cc/bvDfpNpY/Jen-Faroe-Small-Beginnings-Design.png",
+        color: "#b3c9b0",
+        description: "First logo design for a small business."
+      },
+      {
+        id: 5,
+        title: "Poster",
+        category: "branding",
+        tags: ["branding", "poster"],
+        img: "https://i.postimg.cc/kMyzrtK2/Tech-infographic-on-website-load-speed.png",
+        color: "#d1c0cf",
+        description: "Did you know post for a tech business."
+      },
+      {
+        id: 6,
+        title: "YouTube",
+        category: "branding",
+        tags: ["digital", "editorial"],
+        img: "https://i.postimg.cc/3x0twy4S/Magical-Melody-Logo-Design.png",
+        color: "#b9b1a8",
+        description: "YouTube logo for an old creator."
+      },
+      {
+        id: 7,
+        title: "Album",
+        category: "digital",
+        tags: ["digital", "motion"],
+        img: "https://i.postimg.cc/RFh6MtqM/album.png",
+        color: "#c3b8ad",
+        description: "Album Cover for a personal project."
+      }
+    ];
+
+    // references
+    const galleryGrid = document.getElementById('galleryGrid');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    let currentFilter = 'all';
+
+    // ----- render function -----
+    function renderGallery(filter = 'all') {
+      // filter projects
+      const filtered = filter === 'all' 
+        ? projects 
+        : projects.filter(p => p.category === filter);
+
+      // build cards HTML
+      let cardsHtml = '';
+      if (filtered.length === 0) {
+        cardsHtml = `<div style="grid-column: 1 / -1; text-align: center; padding: 3rem 0; color: #6b6258; font-size: 1.1rem; background: #f7f3ee; border-radius: 40px;">
+          <i class="fas fa-search" style="margin-right: 8px;"></i> no projects in this category
+        </div>`;
+      } else {
+        filtered.forEach(project => {
+          // build tags string
+          const tagsHtml = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+
+          // card
+          cardsHtml += `
+            <div class="card" data-id="${project.id}" data-category="${project.category}">
+              <div class="card-img" style="background: ${project.color};">
+                ${project.img.startsWith('http')
+                  ? `<img src="${project.img}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;" />`
+                  : `<i class="fas ${project.img} preview-icon" style="color: #3d352e; opacity: 0.7;"></i>`}
+              </div>
+              <div class="card-body">
+                <div class="card-title">
+                  <i class="fas fa-${project.category === 'branding' ? 'tag' : project.category === 'print' ? 'print' : project.category === 'digital' ? 'laptop' : 'box'}"></i>
+                  ${project.title}
+                </div>
+                <div class="card-tags">
+                  ${tagsHtml}
+                </div>
+                <div class="card-desc">${project.description}</div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      galleryGrid.innerHTML = cardsHtml;
+    }
+
+    // ----- filter click handler -----
+    function handleFilterClick(e) {
+      const btn = e.currentTarget;
+      const filter = btn.dataset.filter;
+
+      // update active class
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      currentFilter = filter;
+      renderGallery(filter);
+    }
+
+    // attach event listeners to filter buttons
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', handleFilterClick);
+    });
+
+    // initial render: 'all'
+    renderGallery('all');
+
+    // (optional) small extra: if any button has 'active' class from start, use that
+    // but we already set 'all' as active in html, and render all.
+  })();
+</script>
+
+</body>
+</html>
